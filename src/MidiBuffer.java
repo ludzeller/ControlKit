@@ -44,15 +44,15 @@ public class MidiBuffer extends FloatBuffer{
     
   }
 
-
   public void controllerChange(int ch, int cc, int value) {
     
     if ((channel - 1) != ch) { // - 1 for array offset
       PApplet.println("Wrong Midi Channel, should be " + ch);
     } else {
-      if(verbose)PApplet.println("Cc: " + cc + ", Value: " + value);
+      if(ControlKit.verbose)PApplet.println("Cc: " + cc + ", Value: " + value);
       //set(cc, PApplet.map(value, 0, 127, mapMin, mapMax));
-      floats[cc].direct = PApplet.map(value, 0, 127, mapMin, mapMax); // store and normalize incoming value
+      floats[cc].direct = PApplet.map(value, 0f, 127f, mapMin, mapMax); // store and normalize incoming value
+      //if(ControlKit.verbose)PApplet.println(floats[cc].direct);
     }
   }
 

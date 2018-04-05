@@ -4,9 +4,8 @@ import processing.core.*;
 
 public class FloatBuffer {
 
-  String version = "0.18";
-  public boolean verbose = false;
-
+  
+  
   //float defaultValue = 0; // default: 0 // maybe this should be settable from the outside
   public float defaultEaseValue = 1; // default: no easing
 
@@ -26,7 +25,7 @@ public class FloatBuffer {
   FloatBuffer(int bufferLength, float initVal, float _mapMin, float _mapMax) {
 
     PApplet.println(""); 
-    PApplet.println("Using ControlKit Version " + version);
+    PApplet.println("Using ControlKit Version " + ControlKit.version);
     PApplet.println(""); 
 
     mapMin = _mapMin;
