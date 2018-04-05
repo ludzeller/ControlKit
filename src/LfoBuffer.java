@@ -45,7 +45,3 @@ public class LfoBuffer implements PConstants{
     return lfos.get(num).value(a, b, phase);
   }
 }
-
-
-
-

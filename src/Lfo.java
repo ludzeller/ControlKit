@@ -1,4 +1,4 @@
-
+      
 package ControlKit;
 
 import processing.core.*;
@@ -8,28 +8,31 @@ import java.util.ArrayList;
 // LFO ---------------
 public class Lfo implements PConstants{
 
+  final static String SIN = "sin";
+  final static String COS = "cos";
+  final static String SAW = "saw";
+  final static String PUL = "pul";
+  
 
   long millisOffset = 0;
   boolean phaseInvert = false;
   float timer = 0;
   int lastTime = 0;
   float freq = 1; // Hertz
-  int waveForm = 1; // 1 = Sin, 2 = Cos, 3 = Saw, 4 = Pulse
+  
+  String waveForm = Lfo.SIN; // 1 = Sin, 2 = Cos, 3 = Saw, 4 = Pulse
 
   public Lfo(float f) {
     this.setFrequency(f);
     millisOffset = System.currentTimeMillis();
   }
 
-  int millis() {
-    return (int) (System.currentTimeMillis() - millisOffset);
-  }
 
   public void update() {
-    float diffTime = millis() - lastTime; // time passed
+    float diffTime = ControlKit.millis() - lastTime; // time passed
     timer += diffTime * freq; // actual animation
     timer %= 1000; // wrap around
-    lastTime = millis();
+    lastTime = ControlKit.millis();
   }
 
   public void setFrequency(float f) {
@@ -41,23 +44,30 @@ public class Lfo implements PConstants{
   }
 
   public void setWaveForm(String type) {
-
-    if (type == "sin") waveForm = 1;
-    if (type == "cos") waveForm = 2;
-    if (type == "saw") waveForm = 3;
-    if (type == "pul") waveForm = 4;
+    
+    if(type != Lfo.SIN && type != Lfo.COS && type != Lfo.SAW && type != Lfo.PUL ){
+      System.out.println("Wrong waveform given");
+      return;
+    }
+    
+    waveForm = type;
+    
   }
 
+  public void setWaveSin() {
+    waveForm = Lfo.SIN;
+  }
+  
   public void setWaveCos() {
-    waveForm = 2;
+    waveForm = Lfo.COS;
   }
 
   public void setWaveSaw() {
-    waveForm = 3;
+    waveForm = Lfo.SAW;
   }
 
   public void setWavePul() {
-    waveForm = 4;
+    waveForm = Lfo.PUL;
   }
 
   public float value() {
@@ -72,7 +82,7 @@ public class Lfo implements PConstants{
 
     switch(waveForm) {
 
-    case 1:
+    case Lfo.SIN:
 
       if (phaseInvert) {
         return PApplet.map(PApplet.sin( PApplet.map(timer+phase, 0, 1000f, 0, TWO_PI ) ), -1f, 1f, a, b);
@@ -81,7 +91,7 @@ public class Lfo implements PConstants{
       }
 
 
-    case 2:
+    case Lfo.COS:
 
       if (phaseInvert) {
         return PApplet.map(PApplet.cos( PApplet.map(timer+phase, 0, 1000f, 0, TWO_PI ) ), -1f, 1f, a, b);
@@ -90,7 +100,7 @@ public class Lfo implements PConstants{
       }
 
 
-    case 3:
+    case Lfo.SAW:
 
       if (phaseInvert) {
         return PApplet.map( (timer+phase)%1000f, 0f, 999f, a, b);
@@ -98,7 +108,7 @@ public class Lfo implements PConstants{
         return PApplet.map( (timer+phase)%1000f, 0f, 999f, b, a);
       }
 
-    case 4:
+    case Lfo.PUL:
       if (phaseInvert) {
         return PApplet.map( PApplet.round(((timer+phase)%1000f)/1000f), 0f, 1f, b, a); // pulse
       } else {
