@@ -29,7 +29,7 @@ public class LfoBuffer implements PConstants{
     lfos.get(num).setPhaseInvert(phase);
   }
 
-  public void setWaveForm(int num, String type) {
+  public void setWaveForm(int num, int type) {
     lfos.get(num).setWaveForm(type);
   }
 

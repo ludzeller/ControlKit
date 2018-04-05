@@ -8,10 +8,10 @@ import java.util.ArrayList;
 // LFO ---------------
 public class Lfo implements PConstants{
 
-  final static String SIN = "sin";
-  final static String COS = "cos";
-  final static String SAW = "saw";
-  final static String PUL = "pul";
+  final static int SIN = 1;
+  final static int COS = 2;
+  final static int SAW = 3;
+  final static int PUL = 4;
   
 
   long millisOffset = 0;
@@ -20,7 +20,7 @@ public class Lfo implements PConstants{
   int lastTime = 0;
   float freq = 1; // Hertz
   
-  String waveForm = Lfo.SIN; // 1 = Sin, 2 = Cos, 3 = Saw, 4 = Pulse
+  int waveForm = Lfo.SIN; // 1 = Sin, 2 = Cos, 3 = Saw, 4 = Pulse
 
   public Lfo(float f) {
     this.setFrequency(f);
@@ -43,7 +43,7 @@ public class Lfo implements PConstants{
     phaseInvert = invert;
   }
 
-  public void setWaveForm(String type) {
+  public void setWaveForm(int type) {
     
     if(type != Lfo.SIN && type != Lfo.COS && type != Lfo.SAW && type != Lfo.PUL ){
       System.out.println("Wrong waveform given");
