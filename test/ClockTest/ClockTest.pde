@@ -25,11 +25,11 @@ void setup() {
   dmxBus = new DmxP512(this, universeSize, false);
   dmxBus.setupDmxPro(DMXPRO_PORT, DMXPRO_BAUDRATE);
   MidiBus.list();
+  
+  nanoBuff1 = new MidiBuffer(1, 10);
   midiBus = new MidiBus(nanoBuff1, "SLIDER/KNOB", "CTRL");
 
-  nanoBuff1 = new MidiBuffer();
-
-  dmxBuff = new DmxBuffer(100); // 100 channels
+  //dmxBuff = new DmxBuffer(100); // 100 channels
 
   lfos = new LfoBuffer(4);
 
@@ -41,17 +41,25 @@ void draw() {
 
   lfos.update();
   nanoBuff1.update();
-  dmxBuff.update();
+  //dmxBuff.update();
   
-  dmxBuff.set(0, random(255));
-  dmxBuff.set(1, lfos.value(0,0,255));
-
-  background(128);
-
-  renderFloatBuffer(dmxBuff.getAllValuesAsInt(), 10, 10); // render first 100 channels
+  //testClock.setRate(nanoBuff1.value(16));
   
-  //nanoBuff1.setEaseRate(0, 0.1);
-  //background(nano1.eased(0, 0, 255));
+  ////println(testClock.getRate());
+  //println(nanoBuff1.value(16));
+  
+  
+  
+  //if(testClock.hasTriggered()){
+  //  background(255);
+  //} else {
+  //  background(0);
+  //}
+
+  //nanoBuff1.set(50, 255);
+  println(nanoBuff1.getAllValuesAsInt().length);
+  //renderFloatBuffer(nanoBuff1.getAllValuesAsInt(), 10, 10);
+
 }
 
 

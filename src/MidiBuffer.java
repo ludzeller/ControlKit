@@ -7,22 +7,28 @@ public class MidiBuffer extends FloatBuffer{
 
   int channel;
   boolean useKnobsForEasing = false; // Korg NanoControl only: use knobs to set easing for each fader
+
+  static int defaultChannel = 1;
+  static int defaultAmount = 128;
+  static float defaultValue = 0;
   
   public MidiBuffer() {
-    this(1, 1);
+    this(MidiBuffer.defaultChannel, MidiBuffer.defaultAmount, MidiBuffer.defaultValue);
   }
 
   public MidiBuffer(int ch) {
-    this(ch, 1);
+    this(ch, MidiBuffer.defaultAmount, MidiBuffer.defaultValue);
   }
 
-  public MidiBuffer(int ch, float initVal) {
-    super(128, initVal); // 128 cc numbers
+  public MidiBuffer(int ch, int amount) {
+    this(ch, amount, MidiBuffer.defaultValue);
+  }
+
+  public MidiBuffer(int ch, int amount, float initVal) {
+    super(amount, initVal, 0f, 1f);
     channel = ch;
   }
   
-
-
   
   public void update() {
     super.update();
@@ -45,7 +51,8 @@ public class MidiBuffer extends FloatBuffer{
       PApplet.println("Wrong Midi Channel, should be " + ch);
     } else {
       if(verbose)PApplet.println("Cc: " + cc + ", Value: " + value);
-      floats[cc].direct = PApplet.map(value, 0, 127, 0, 1); // store and normalize incoming value
+      //set(cc, PApplet.map(value, 0, 127, mapMin, mapMax));
+      floats[cc].direct = PApplet.map(value, 0, 127, mapMin, mapMax); // store and normalize incoming value
     }
   }
 

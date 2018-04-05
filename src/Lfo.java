@@ -8,10 +8,10 @@ import java.util.ArrayList;
 // LFO ---------------
 public class Lfo implements PConstants{
 
-  final static int SIN = 1;
-  final static int COS = 2;
-  final static int SAW = 3;
-  final static int PUL = 4;
+  public final static int SIN = 1;
+  public final static int COS = 2;
+  public final static int SAW = 3;
+  public final static int PUL = 4;
   
 
   long millisOffset = 0;

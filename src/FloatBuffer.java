@@ -16,7 +16,7 @@ public class FloatBuffer {
   float mapMax;
 
   FloatBuffer(int bufferLength){
-    this(bufferLength, 0, 0f, 1f);
+    this(bufferLength, 0f, 0f, 1f);
   }
 
   FloatBuffer(int bufferLength, float initVal){
@@ -38,7 +38,6 @@ public class FloatBuffer {
     for ( int i = 0; i < bufferLength; i++ ) {
       floats[i] = new FloatStruct();
       floats[i].direct = initVal;
-      floats[i].direct = initVal;
       floats[i].eased = initVal;
       floats[i].easeRate = defaultEaseValue;
       floats[i].linearity = initVal;
@@ -58,27 +57,27 @@ public class FloatBuffer {
   }
 
   public float value(int index) {
-    return value(index, floats[index].mapMin, floats[index].mapMax, 1);
+    return floats[index].direct;
   } 
 
-  public float value(int index, float a, float b) {
-    return value(index, a, b, 1);
+  public float value(int index, float outMin, float outMax) {
+    return value(index, outMin, outMax, 1f);
   }
 
-  public float value(int index, float a, float b, float linearity) {
-    return PApplet.map(PApplet.pow(floats[index].direct, linearity), 0, 1, a, b);
+  public float value(int index, float outMin, float outMax, float linearity) {
+    return PApplet.map(PApplet.pow(floats[index].direct, linearity), mapMin, mapMax, outMin, outMax);
   }
 
   public float eased(int index) {
-    return eased(index, floats[index].mapMin, floats[index].mapMax, 1);
+    return eased(index, mapMin, mapMax, 1f);
   } 
 
-  public float eased(int index, float a, float b) {
-    return eased(index, a, b, 1);
+  public float eased(int index, float outMin, float outMax) {
+    return eased(index, outMin, outMax, 1f);
   }
 
-  public float eased(int index, float a, float b, float linearity) {
-    return PApplet.map(PApplet.pow(floats[index].eased, linearity), 0, 1, a, b);
+  public float eased(int index, float outMin, float outMax, float linearity) {
+    return PApplet.map(PApplet.pow(floats[index].eased, linearity), mapMin, mapMax, outMin, outMax);
   }  
 
   public float[] getAllValues(){
@@ -105,6 +104,30 @@ public class FloatBuffer {
     return result;
   }
 
+  public float[] getAllEased(){
+    return getAllValues(mapMin, mapMax);
+  }
+
+  public float[] getAllEased(float a, float b){
+    float[] result = new float[floats.length];
+    for(int i = 0; i < floats.length; i++){
+      result[i] = eased(i, a, b);
+    }
+    return result;
+  }
+
+  public int[] getAllEasedAsInt() {
+    return getAllEasedAsInt(mapMin, mapMax);
+  }
+
+  public int[] getAllEasedAsInt(float a, float b) {
+    int[] result = new int[floats.length];
+    for(int i = 0; i < floats.length; i++){
+      result[i] = PApplet.floor(eased(i, a, b));
+    }
+    return result;
+  }  
+
   public void update() {
 
     for ( int i = 0; i < floats.length; i++ ) {
@@ -113,9 +136,9 @@ public class FloatBuffer {
     }
   }
 
-  public void set(int index, int value){
-    set(index, value);
-  }
+  //public void set(int index, int value){
+  //  set(index, value);
+  //}
 
   public void set(int index, float value){
     floats[index].direct = value; // this does not map them to mapMin and mapMax!
