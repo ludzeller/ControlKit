@@ -4,8 +4,6 @@ import processing.core.*;
 
 public class FloatBuffer {
 
-  
-  
   //float defaultValue = 0; // default: 0 // maybe this should be settable from the outside
   public float defaultEaseValue = 1; // default: no easing
 

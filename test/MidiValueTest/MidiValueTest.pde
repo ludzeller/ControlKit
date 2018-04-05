@@ -1,7 +1,7 @@
 import themidibus.*; 
 import ControlKit.*;
 
-MidiBus midiBus;
+MidiBus midiBus1;
 MidiBuffer nanoBuff1;
 
 LfoBuffer lfos;
@@ -16,7 +16,7 @@ void setup() {
   MidiBus.list();
   
   nanoBuff1 = new MidiBuffer(); // kanal 1, 10
-  midiBus = new MidiBus(nanoBuff1, "SLIDER/KNOB", "CTRL");
+  midiBus1 = new MidiBus(nanoBuff1, "SLIDER/KNOB", "CTRL");
 
 }
 
@@ -27,9 +27,9 @@ void draw() {
   nanoBuff1.setEaseRate(1, 0.1);
   
   background(
-    nanoBuff1.value(0, 0, 255),
-    nanoBuff1.eased(1, 0, 255),
-    nanoBuff1.value(2, 0, 255, 5)
+    nanoBuff1.value(16, 0, 255),
+    nanoBuff1.eased(17, 0, 255),
+    nanoBuff1.value(18, 0, 255, 5)
     );
   
 }

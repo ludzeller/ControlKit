@@ -13,22 +13,25 @@ public class MidiBuffer extends FloatBuffer{
   static float defaultValue = 0;
   
   public MidiBuffer() {
-    this(MidiBuffer.defaultChannel, MidiBuffer.defaultAmount, MidiBuffer.defaultValue);
+    this(MidiBuffer.defaultChannel, MidiBuffer.defaultAmount, MidiBuffer.defaultValue, 0f, 1f);
   }
 
   public MidiBuffer(int ch) {
-    this(ch, MidiBuffer.defaultAmount, MidiBuffer.defaultValue);
+    this(ch, MidiBuffer.defaultAmount, MidiBuffer.defaultValue, 0f, 1f);
   }
 
   public MidiBuffer(int ch, int amount) {
-    this(ch, amount, MidiBuffer.defaultValue);
+    this(ch, amount, MidiBuffer.defaultValue, 0f, 1f);
   }
 
   public MidiBuffer(int ch, int amount, float initVal) {
-    super(amount, initVal, 0f, 1f);
-    channel = ch;
+    this(ch, amount, initVal, 0f, 1f);
   }
-  
+
+  public MidiBuffer(int ch, int amount, float initVal, float _mapMin, float _mapMax) {
+    super(amount, initVal, _mapMin, _mapMax);
+    channel = ch;
+  }  
   
   public void update() {
     super.update();
