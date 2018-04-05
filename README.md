@@ -17,10 +17,13 @@ mv ControlKit.jar ../library/
 https://github.com/processing/processing/wiki/Library-Basics
 
 **Processing javadocs**
+
 https://processing.github.io/processing-javadocs/core/
 
 **Processing source code**
+
 https://github.com/processing/processing/blob/master/core%2Fsrc%2Fprocessing%2Fcore%2FPApplet.java
 
 **Markdown cheatsheet**
+
 https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf
