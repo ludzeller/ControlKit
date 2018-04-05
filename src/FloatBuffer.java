@@ -12,10 +12,25 @@ public class FloatBuffer {
 
   public FloatStruct[] floats;
 
-  FloatBuffer(int bufferLength, float initVal) {
+  float mapMin;
+  float mapMax;
 
+  FloatBuffer(int bufferLength){
+    this(bufferLength, 0, 0f, 1f);
+  }
+
+  FloatBuffer(int bufferLength, float initVal){
+    this(bufferLength, initVal, 0f, 1f);
+  }
+  
+  FloatBuffer(int bufferLength, float initVal, float _mapMin, float _mapMax) {
+
+    PApplet.println(""); 
     PApplet.println("Using ControlKit Version " + version);
     PApplet.println(""); 
+
+    mapMin = _mapMin;
+    mapMax = _mapMax;
     
     floats = new FloatStruct[bufferLength];
 
@@ -26,8 +41,6 @@ public class FloatBuffer {
       floats[i].direct = initVal;
       floats[i].eased = initVal;
       floats[i].easeRate = defaultEaseValue;
-      floats[i].mapMin = 0;
-      floats[i].mapMax = 1;
       floats[i].linearity = initVal;
     }
   }
@@ -36,43 +49,61 @@ public class FloatBuffer {
     floats[index].easeRate = val;
   }
 
-  public void setMapMinimum(int index, float val) {
-    floats[index].mapMin = val;
+  public void setMapMinimum(float val) {
+    mapMin = val;
   }
 
-  public void setMapMaximum(int index, float val) {
-    floats[index].mapMax = val;
+  public void setMapMaximum(float val) {
+    mapMax = val;
   }
-
-  // below 1 bends curve up, above 1 bends curve down
-  public void setLinearity(int index, float val) {
-    floats[index].linearity = val;
-  }
-
 
   public float value(int index) {
-    return value(index, floats[index].mapMin, floats[index].mapMax, floats[index].linearity);
+    return value(index, floats[index].mapMin, floats[index].mapMax, 1);
   } 
 
   public float value(int index, float a, float b) {
-    return value(index, a, b, floats[index].linearity);
+    return value(index, a, b, 1);
   }
 
   public float value(int index, float a, float b, float linearity) {
-    return PApplet.map(PApplet.pow(floats[index].direct, floats[index].linearity), 0, 1, a, b);
+    return PApplet.map(PApplet.pow(floats[index].direct, linearity), 0, 1, a, b);
   }
 
   public float eased(int index) {
-    return eased(index, floats[index].mapMin, floats[index].mapMax, floats[index].linearity);
+    return eased(index, floats[index].mapMin, floats[index].mapMax, 1);
   } 
 
   public float eased(int index, float a, float b) {
-    return eased(index, a, b, floats[index].linearity);
+    return eased(index, a, b, 1);
   }
 
   public float eased(int index, float a, float b, float linearity) {
     return PApplet.map(PApplet.pow(floats[index].eased, linearity), 0, 1, a, b);
   }  
+
+  public float[] getAllValues(){
+    return getAllValues(mapMin, mapMax);
+  }
+
+  public float[] getAllValues(float a, float b){
+    float[] result = new float[floats.length];
+    for(int i = 0; i < floats.length; i++){
+      result[i] = value(i, a, b);
+    }
+    return result;
+  }
+
+  public int[] getAllValuesAsInt() {
+    return getAllValuesAsInt(mapMin, mapMax);
+  }
+
+  public int[] getAllValuesAsInt(float a, float b) {
+    int[] result = new int[floats.length];
+    for(int i = 0; i < floats.length; i++){
+      result[i] = PApplet.floor(value(i, a, b));
+    }
+    return result;
+  }
 
   public void update() {
 
@@ -81,4 +112,13 @@ public class FloatBuffer {
       floats[i].eased += delta * floats[i].easeRate;
     }
   }
+
+  public void set(int index, int value){
+    set(index, value);
+  }
+
+  public void set(int index, float value){
+    floats[index].direct = value; // this does not map them to mapMin and mapMax!
+  }
+
 }

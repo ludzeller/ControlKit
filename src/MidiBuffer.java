@@ -1,14 +1,4 @@
 
-// MidiFlow
-// ludwig.zeller@fhnw.ch
-// viscom / IXDM / HGK / FHNW
-
-// todo:
-// allow for non-linear mappings also for negative ranges, etc
-
-// usage:
-// 
-
 package ControlKit;
 
 import processing.core.*;

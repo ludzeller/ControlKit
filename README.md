@@ -10,6 +10,12 @@ jar -cf ControlKit.jar ControlKit;
 mv ControlKit.jar ../library/
 ```
 
+or as a 1-liner:
+
+```
+javac -Xlint:-options -source 1.6 -target 1.6 -d . -classpath /Applications/Processing3.3.6.app/Contents/Java/core/library/core.jar *.java; jar -cf ControlKit.jar ControlKit; mv ControlKit.jar ../library/
+```
+
 - Run from within src folder
 - Processing runs in a legacy version of Java, therefore compile for it accordingly
 
