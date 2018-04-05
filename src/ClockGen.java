@@ -11,7 +11,7 @@ public class ClockGen{
   }
   
   public boolean hasTriggered(){
-    if (ControlKit.millis() <= lastUpdate + 1000f / rate){
+    if (ControlKit.millis() < lastUpdate + 1000f / rate){
       return false;
     } else {
       lastUpdate = ControlKit.millis();

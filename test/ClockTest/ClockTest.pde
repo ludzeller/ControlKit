@@ -43,44 +43,44 @@ void draw() {
   nanoBuff1.update();
   //dmxBuff.update();
   
-  //testClock.setRate(nanoBuff1.value(16));
+  testClock.setRate(map(mouseX, 0, width, 0.5, 30));
   
   ////println(testClock.getRate());
   //println(nanoBuff1.value(16));
   
   
   
-  //if(testClock.hasTriggered()){
-  //  background(255);
-  //} else {
-  //  background(0);
-  //}
+  if(testClock.hasTriggered()){
+    background(255);
+  } else {
+    background(0);
+  }
 
   //nanoBuff1.set(50, 255);
-  println(nanoBuff1.getAllValuesAsInt().length);
+  //println(nanoBuff1.getAllValuesAsInt().length);
   //renderFloatBuffer(nanoBuff1.getAllValuesAsInt(), 10, 10);
 
 }
 
 
-void renderFloatBuffer(int[] values, int xRows, int yRows) {
+//void renderFloatBuffer(int[] values, int xRows, int yRows) {
 
-  int counter = 0;
-  float w = width / (xRows+1) * 0.9;
-  noStroke();
-  rectMode(CENTER);
-  textAlign(CENTER, CENTER);
+//  int counter = 0;
+//  float w = width / (xRows+1) * 0.9;
+//  noStroke();
+//  rectMode(CENTER);
+//  textAlign(CENTER, CENTER);
   
-  for (int y = 1; y <= yRows; y++) {
-    for (int x = 1; x <= xRows; x++) {
+//  for (int y = 1; y <= yRows; y++) {
+//    for (int x = 1; x <= xRows; x++) {
         
-      float xPos = x * width / (xRows+1);
-      float yPos = y * height / (yRows+1);
-      fill( values[counter] );
-      ellipse( xPos, yPos, w, w);
-      fill(255, 0, 0);
-      text(counter, xPos, yPos);
-      counter++;
-    }
-  }
-}
+//      float xPos = x * width / (xRows+1);
+//      float yPos = y * height / (yRows+1);
+//      fill( values[counter] );
+//      ellipse( xPos, yPos, w, w);
+//      fill(255, 0, 0);
+//      text(counter, xPos, yPos);
+//      counter++;
+//    }
+//  }
+//}
