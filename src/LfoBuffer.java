@@ -21,6 +21,10 @@ public class LfoBuffer implements PConstants{
     }
   }
 
+  public void resetPhase(int num) {
+    lfos.get(num).resetPhase();
+  }
+
   public void setFrequency(int num, float freq) {
     lfos.get(num).setFrequency(freq);
   }  

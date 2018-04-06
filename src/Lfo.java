@@ -25,8 +25,14 @@ public class Lfo implements PConstants{
   public Lfo(float f) {
     this.setFrequency(f);
     millisOffset = System.currentTimeMillis();
+    resetPhase();
   }
 
+  public void resetPhase(){
+    
+    // millisOffset = ControlKit.millis();
+    timer = 0;
+  }
 
   public void update() {
     float diffTime = ControlKit.millis() - lastTime; // time passed
@@ -78,6 +84,7 @@ public class Lfo implements PConstants{
     return value(a, b, 0);
   }
 
+  //achtung: phase 1000 -> TWO_PI!
   public float value(float a, float b, float phase ) {
 
     switch(waveForm) {

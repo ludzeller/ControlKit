@@ -106,13 +106,13 @@ public class FloatBuffer {
   }
 
   public float[] getAllEased(){
-    return getAllValues(mapMin, mapMax);
+    return getAllEased(mapMin, mapMax);
   }
 
   public float[] getAllEased(float a, float b){
     float[] result = new float[floats.length];
     for(int i = 0; i < floats.length; i++){
-      result[i] = eased(i, a, b);
+      result[i] = PApplet.floor(eased(i, a, b));
     }
     return result;
   }
