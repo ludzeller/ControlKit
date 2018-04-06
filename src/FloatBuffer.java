@@ -53,6 +53,10 @@ public class FloatBuffer {
     mapMax = val;
   }
 
+  public int change(int index) {
+    return floats[index].change;
+  }
+
   public float value(int index) {
     return floats[index].direct;
   } 
@@ -128,6 +132,18 @@ public class FloatBuffer {
   public void update() {
 
     for ( int i = 0; i < floats.length; i++ ) {
+
+      // change management
+      if(floats[i].last == floats[i].direct){
+        floats[i].change = 0; // no change
+      } else if (floats[i].last > floats[i].direct) {
+        floats[i].change = -1; // falling
+      } else if (floats[i].last < floats[i].direct) {
+        floats[i].change = 1; // rising
+      }
+      floats[i].last = floats[i].direct; 
+
+      // do easing
       float delta = floats[i].direct - floats[i].eased;
       floats[i].eased += delta * floats[i].easeRate;
     }
@@ -138,7 +154,8 @@ public class FloatBuffer {
   //}
 
   public void set(int index, float value){
-    floats[index].direct = value; // this does not map them to mapMin and mapMax!
+    floats[index].direct = PApplet.constrain(value, mapMin, mapMax); // this does not map them to mapMin and mapMax!
   }
+
 
 }
